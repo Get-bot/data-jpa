@@ -49,6 +49,27 @@ public class MemberJpaRepository {
                 .getResultList();
     }
 
+    public List<Member> findByPage(int age, int offset, int limit) {
+        return em.createQuery("select m from Member m where m.age = :age order by m.username desc", Member.class)
+                .setParameter("age", age) // 파라미터 바인딩
+                .setFirstResult(offset) // 페이징
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public long totalCount(int age) {
+        return em.createQuery("select count(m) from Member m where m.age = :age", Long.class)
+                .setParameter("age", age) // 파라미터 바인딩
+                .getSingleResult();
+    }
+
+    public int bulkAgePlus(int age) {
+        return em.createQuery("update Member m set m.age = m.age + 1 where m.age >= :age")
+                .setParameter("age", age) // 파라미터 바인딩
+                .executeUpdate(); // executeUpdate()는 영향을 받은 엔티티 수를 반환한다.
+    }
+
+
 
 
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
